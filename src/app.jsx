@@ -111,7 +111,7 @@ function VideoPlayer({ video, currentVideoId, setCurrentVideoId }) {
 function Sidebar({ videoItems, currentVideoId, setCurrentVideoId }) {
   return (
     <div className="sidebar">
-      <WatchedVideosProgress />
+      <WatchedVideosProgress videoItems={videoItems} />
       <VideoItemList
         videoItems={videoItems}
         currentVideoId={currentVideoId}
@@ -121,8 +121,12 @@ function Sidebar({ videoItems, currentVideoId, setCurrentVideoId }) {
   );
 }
 
-function WatchedVideosProgress() {
-  return <div className="watched-videos-progress">WatchedVideosProgress</div>;
+function WatchedVideosProgress({videoItems}) {
+  let count=videoItems.reduce((count,video)=>{
+    return video.isMarkedAsCompleted?count+1:count;
+  },0)
+  console.log(count);
+  return <div className="watched-videos-progress">WatchedVideosProgress: <b>{count}/6</b></div>;
 }
 
 function VideoItemList({ videoItems, currentVideoId, setCurrentVideoId }) {
